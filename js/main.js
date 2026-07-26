@@ -9,10 +9,6 @@
 // выводятся в консоль браузера и никуда не отправляются.
 const LEADS_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbylKFyCkw8Ux29QkYS-n6D4p2Cqf4UQIa0sCSDU6Dk3GZnmd5vsYR1SHN1xKvQvZ1EA/exec';
 
-// Номер счётчика Яндекс.Метрики (Настройки счётчика → номер). Пока пусто —
-// счётчик не подключается и в cookie-баннере просто показывается уведомление.
-const YANDEX_METRIKA_ID = '';
-
 document.addEventListener('DOMContentLoaded', () => {
   initHeaderScroll();
   initMobileMenu();
@@ -20,7 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initReviewsCarousel();
   initForm();
   initYear();
-  initCookieBanner();
 });
 
 /* ---------- Header background on scroll ---------- */
@@ -163,54 +158,6 @@ function initReviewsCarousel() {
 function initYear() {
   const el = document.getElementById('year');
   if (el) el.textContent = new Date().getFullYear();
-}
-
-/* ---------- Cookie / analytics consent banner ----------
- * Пока пользователь явно не нажал "Хорошо", счётчик аналитики
- * (Яндекс.Метрика) не загружается — это подтверждение согласия
- * на использование cookie в понимании раздела 8 политики обработки ПДн.
- * См. legal/privacy-policy.html.
- */
-const COOKIE_CONSENT_KEY = 'yureks_cookie_consent';
-
-function initCookieBanner() {
-  const banner = document.getElementById('cookieBanner');
-  const acceptBtn = document.getElementById('cookieAccept');
-  if (!banner || !acceptBtn) return;
-
-  const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
-
-  if (consent === 'accepted') {
-    loadAnalytics();
-    return;
-  }
-
-  setTimeout(() => banner.classList.add('is-visible'), 600);
-
-  acceptBtn.addEventListener('click', () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted');
-    banner.classList.remove('is-visible');
-    loadAnalytics();
-  });
-}
-
-function loadAnalytics() {
-  if (!YANDEX_METRIKA_ID) return;
-
-  /* eslint-disable */
-  (function (m, e, t, r, i, k, a) {
-    m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments); };
-    m[i].l = 1 * new Date();
-    for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
-    k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a);
-  })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
-  /* eslint-enable */
-
-  window.ym(YANDEX_METRIKA_ID, 'init', {
-    clickmap: true,
-    trackLinks: true,
-    accurateTrackBounce: true,
-  });
 }
 
 /* ---------- Consultation form ---------- */
