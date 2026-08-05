@@ -179,8 +179,8 @@ function initForm() {
     const requiredFields = ['full_name', 'phone', 'location', 'employment_type', 'probation', 'work_format', 'situation'];
     const hasAllRequired = requiredFields.every((field) => data[field]);
 
-    if (!hasAllRequired || !data.consent || !data.oferta_consent) {
-      showStatus(status, 'Пожалуйста, заполните обязательные поля и подтвердите оба согласия.', 'error');
+    if (!hasAllRequired || !data.consent) {
+      showStatus(status, 'Пожалуйста, заполните обязательные поля и дайте согласие на обработку данных.', 'error');
       return;
     }
 
