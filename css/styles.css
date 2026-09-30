@@ -171,13 +171,6 @@ p { margin: 0; }
   align-items: center;
   gap: 20px;
 }
-.header__phone {
-  color: var(--text-light);
-  font-weight: 700;
-  font-size: 15px;
-  white-space: nowrap;
-}
-
 .burger {
   display: none;
   flex-direction: column;
@@ -777,7 +770,6 @@ p { margin: 0; }
 @media (max-width: 900px) {
   .nav { display: none; }
   .burger { display: flex; }
-  .header__phone { display: none; }
 
   .nav.is-open {
     display: flex;
